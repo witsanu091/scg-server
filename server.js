@@ -69,7 +69,6 @@ app.get("/user/getUser/:id", async (req, res) => {
 app.post("/user/saveUser", async (req, res) => {
   try {
     const payload = req.body;
-    console.log(req.body);
     res.json({ message: "success", data: req.body });
 
     const errors = validationResult(req);
@@ -82,8 +81,8 @@ app.post("/user/saveUser", async (req, res) => {
     const user = new UserModel(payload);
     await user.save();
     res.json({ message: "success", data: user });
+    setText(user);
     res.status(201).end();
-    setText(payload);
   } catch (error) {
     throw error;
   }
