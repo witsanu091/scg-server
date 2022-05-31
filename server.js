@@ -1,5 +1,11 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+app.use(
+  cors({
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
@@ -7,9 +13,12 @@ const UserModel = require("./model/user-model");
 const setText = require("./components/line-notify");
 const { json } = require("express/lib/response");
 
-mongoose.connect("mongodb://localhost:27017/scg-database", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb+srv://witsanu091:witsanuii091@scg-database.jiij1dx.mongodb.net/scg-database?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+  }
+);
 
 const db = mongoose.connection;
 db.once("open", function () {
@@ -60,6 +69,9 @@ app.get("/user/getUser/:id", async (req, res) => {
 app.post("/user/saveUser", async (req, res) => {
   try {
     const payload = req.body;
+    console.log(req.body);
+    res.json({ message: "success", data: req.body });
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -73,10 +85,7 @@ app.post("/user/saveUser", async (req, res) => {
     res.status(201).end();
     setText(payload);
   } catch (error) {
-    res.status(400).json({
-      message: "network request failed",
-      errors: error.array(),
-    });
+    throw error;
   }
 });
 

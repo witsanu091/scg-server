@@ -8,7 +8,6 @@ const userSchema = new Schema({
   lastname: String,
   phone: String,
   email: String,
-  dateSubmit: Date,
 });
 
 const UserModel = mongoose.model("User", userSchema);
