@@ -69,8 +69,6 @@ app.get("/user/getUser/:id", async (req, res) => {
 app.post("/user/saveUser", async (req, res) => {
   try {
     const payload = req.body;
-    res.json({ message: "success", data: req.body });
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
