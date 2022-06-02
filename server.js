@@ -14,7 +14,8 @@ const setText = require("./components/line-notify");
 const { json } = require("express/lib/response");
 
 mongoose.connect(
-  "mongodb+srv://witsanu091:witsanuii091@scg-database.jiij1dx.mongodb.net/scg-database?retryWrites=true&w=majority",
+  // "mongodb+srv://witsanu091:witsanuii091@scg-database.jiij1dx.mongodb.net/scg-database?retryWrites=true&w=majority",
+  "mongodb://localhost:27017",
   {
     useNewUrlParser: true,
   }
@@ -25,7 +26,7 @@ db.once("open", function () {
   console.log("Connected to MongoDB successfully!");
 });
 db.on("error", function () {
-  console.log(err);
+  console.log("err");
 });
 
 app.get("/user/getUser", async (req, res) => {
